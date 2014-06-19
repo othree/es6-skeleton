@@ -1,5 +1,6 @@
 
 var mod = require('./libmod');
+var foomod = require('./foomod');
 
 mod.init();
 
