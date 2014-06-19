@@ -5,7 +5,15 @@ var connect = require('gulp-connect');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var es6ify = require('es6ify');
+var gutil = require('gulp-util');
 var tmp = '.tmp';
+
+// error log for browserify
+var errLog = function (err) {
+  if (err) {
+    gutil.log(err.toString());
+  }
+};
 
 // Connect
 gulp.task('connect', function () {
@@ -37,10 +45,12 @@ gulp.task('es6runtime', function(){
 gulp.task('browserify', ['es6runtime'], function(){
     return gulp.src('app/scripts/main.js', {read: false})
       .pipe(browserify({
-        transform: ['es6ify']
+        transform: ['es6ify'],
+        debug: true
       }))
+      .on('error', errLog)
       .pipe(rename('build.js'))
-      .pipe(gulp.dest(tmp + '/scripts/'));
+      .pipe(gulp.dest(tmp + '/scripts/'))
 });
 
 // Watch
