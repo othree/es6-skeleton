@@ -8,11 +8,20 @@ var es6ify = require('es6ify');
 var tmp = '.tmp';
 
 // Connect
-gulp.task('connect', connect.server({
-    root: ['app', tmp],
+gulp.task('connect', function () {
+  connect.server({
+    root: [tmp, 'app'],
     port: 9000,
-    livereload: true
-}));
+    livereload: true,
+    fallback: 'index.html'
+  });
+});
+
+// Styles
+gulp.task('html', function () {
+    return gulp.src('app/*.html')
+      .pipe(gulp.dest(tmp + '/'));
+});
 
 // Styles
 gulp.task('styles', function () {
@@ -57,4 +66,8 @@ gulp.task('watch', ['connect'], function () {
 
     // Watch image files
     gulp.watch('app/images/**/*', ['images']);
+
+    gulp.watch('app/*.html', ['html']);
+    gulp.start('html');
+
 });
