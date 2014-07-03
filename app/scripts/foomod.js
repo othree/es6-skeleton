@@ -1,11 +1,13 @@
 
 class Foo {
   constructor() {
-    this.count = 0;
+    this.val = 0;
+    alert('inited');
   }
 
   get count() {
-    return this.count;
+    return this.val;
   }
 }
 
+exports.Foo = Foo;

@@ -1,6 +1,8 @@
 
 var mod = require('./libmod');
-var foomod = require('./foomod');
+var foomod = require('./foomod').Foo;
+
+new foomod();
 
 mod.init();
 
